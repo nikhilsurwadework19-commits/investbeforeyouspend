@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+body { font-family: var(--font-outfit), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+
+.chat-scroll::-webkit-scrollbar { width: 4px; }
+.chat-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.fade-up { animation: fadeUp 0.5s ease forwards; }
+.fade-up-1 { animation: fadeUp 0.5s 0.1s ease forwards; opacity:0; }
+.fade-up-2 { animation: fadeUp 0.5s 0.2s ease forwards; opacity:0; }
+.fade-up-3 { animation: fadeUp 0.5s 0.3s ease forwards; opacity:0; }

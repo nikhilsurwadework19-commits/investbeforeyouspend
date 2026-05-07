@@ -13,7 +13,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
         <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-brand-600 hover:underline mb-6"><ArrowLeft className="w-4 h-4"/>Back to Blog</Link>
         <div className="bg-white rounded-2xl border border-slate-100 p-8">
           <div className="text-4xl mb-3">{post!.emoji}</div>
-          <span className="text-xs font-semibold bg-slate-100 text-slate-600 px-2 py-1 rounded-full">{post!.category} · {post!.readTime}</span>
           <h1 className="text-3xl font-bold text-slate-900 mt-4 mb-6">{post!.title}</h1>
           <div>
             {post!.content.split("\n\n").map((para, i) => (
@@ -22,7 +21,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
           </div>
         </div>
         <div className="mt-6 text-center">
-          <Link href="/goal" className="inline-flex items-center gap-2 bg-brand-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-brand-700 transition-colors text-sm">Apply this — set my goal</Link>
+          <Link href="/goal" className="inline-flex items-center gap-2 bg-brand-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-brand-700 transition-colors text-sm">Set my goal</Link>
         </div>
       </div>
     </div>

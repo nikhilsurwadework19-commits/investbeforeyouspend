@@ -22,8 +22,8 @@ export default async function LearnTopicPage({ params }: { params: Promise<{ id:
           </div>
         </div>
         <div className="mt-6 flex gap-4">
-          <Link href="/goal" className="flex-1 bg-brand-600 text-white font-semibold py-3 rounded-xl text-center hover:bg-brand-700 transition-colors text-sm">Apply this to my goal <ArrowRight className="inline w-4 h-4 ml-1"/></Link>
-          <Link href="/chat" className="flex-1 border border-slate-200 text-slate-700 font-semibold py-3 rounded-xl text-center hover:bg-slate-50 transition-colors text-sm">Ask AI a question</Link>
+          <Link href="/goal" className="flex-1 bg-brand-600 text-white font-semibold py-3 rounded-xl text-center hover:bg-brand-700 transition-colors text-sm">Apply to my goal <ArrowRight className="inline w-4 h-4 ml-1"/></Link>
+          <Link href="/chat" className="flex-1 border border-slate-200 text-slate-700 font-semibold py-3 rounded-xl text-center hover:bg-slate-50 transition-colors text-sm">Ask AI</Link>
         </div>
       </div>
     </div>

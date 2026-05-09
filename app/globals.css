@@ -136,3 +136,114 @@ body{background:#050818;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:h
 .footer-bottom{position:relative;z-index:2;background:#02030D;padding:20px 64px;display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.15)}
 
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;z-index:9997;opacity:.5}
+
+/* ── GLOBAL DEEP SPACE STYLES ── */
+* { cursor: none !important; }
+@media (max-width: 768px) { * { cursor: auto !important; } }
+
+html { scroll-behavior: auto !important; } /* Lenis handles this */
+
+/* Page content sits above canvas */
+main, section, footer, nav { position: relative; z-index: 1; }
+
+/* Deep space page wrapper for inner pages */
+.space-page {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding-top: 76px;
+}
+
+/* Inner page hero */
+.page-hero {
+  padding: clamp(60px,8vw,120px) clamp(24px,5vw,64px) clamp(40px,6vw,80px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #7B5FFF;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px,6vw,80px);
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: -2px;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.page-title em {
+  font-style: italic;
+  color: #B47FFF;
+}
+
+.page-subtitle {
+  font-size: clamp(14px,1.5vw,17px);
+  color: rgba(255,255,255,0.45);
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+/* Cards across all pages */
+.space-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 2px;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+
+.space-card:hover {
+  background: rgba(180,127,255,0.06);
+  border-color: rgba(180,127,255,0.2);
+  transform: translateY(-3px);
+}
+
+.space-card-top {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,71,255,0.5), transparent);
+}
+
+/* Section label */
+.s-eye {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #7B5FFF;
+  margin-bottom: 14px;
+  display: block;
+}
+
+/* Gradient text */
+.grad-text {
+  background: linear-gradient(135deg, #9B89FF, #B47FFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bottom glow line on sections */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,71,255,0.3), transparent);
+  margin: 0;
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6347FF, #B47FFF);
+  z-index: 10000;
+  transform-origin: left;
+  transition: transform 0.1s linear;
+}

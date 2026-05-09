@@ -1,81 +1,75 @@
+"use client";
 import { investmentOptions } from "@/lib/data";
 import Link from "next/link";
-import { ArrowRight, Shield, ExternalLink } from "lucide-react";
+import { useEffect } from "react";
 
 const platforms = [
-  { name:"Fidelity", url:"https://fidelity.com", note:"$0 commission · No minimums · Best for beginners", bonus:"$100 cash for $50 deposit (new accounts)" },
-  { name:"Charles Schwab", url:"https://schwab.com", note:"$0 commission · 24/7 support · Great research tools", bonus:"Up to $500 for qualifying deposits" },
-  { name:"Marcus by Goldman Sachs", url:"https://marcus.com", note:"5.0% APY savings · FDIC insured · No fees", bonus:"Rate guaranteed for 90 days" },
-  { name:"TreasuryDirect.gov", url:"https://treasurydirect.gov", note:"Buy US Treasuries directly · No fees at all", bonus:"Backed by the US government" },
+  { name: "Fidelity", url: "https://fidelity.com", note: "$0 commission · No minimums · Best for beginners", bonus: "$100 for new accounts" },
+  { name: "Charles Schwab", url: "https://schwab.com", note: "$0 commission · 24/7 support", bonus: "Up to $500 bonus" },
+  { name: "Marcus by Goldman", url: "https://marcus.com", note: "~5% APY savings · FDIC insured", bonus: "Rate locked 90 days" },
+  { name: "TreasuryDirect.gov", url: "https://treasurydirect.gov", note: "US Treasuries direct · Zero fees", bonus: "US Government backed" },
 ];
 
 export default function InvestPage() {
-  return (
-    <div className="min-h-screen bg-slate-50 px-4 py-12">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-900 mb-3">How to invest for your goal</h1>
-          <p className="text-slate-500 text-lg max-w-xl mx-auto">Matched to your timeline. No broker account required to browse — we'll show you exactly where and how to get started.</p>
-          <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium px-4 py-2 rounded-full mt-4">
-            <Shield className="w-3.5 h-3.5" /> We earn a small referral fee from partners when you open an account. This doesn't change your rates.
-          </div>
-        </div>
+  useEffect(() => {
+    async function init() {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from(".page-title", { opacity: 0, y: 50, duration: 1.1, ease: "power4.out", delay: 0.1 });
+      gsap.from(".inv-opt", { opacity: 0, y: 60, duration: 0.9, stagger: 0.12, ease: "power3.out", scrollTrigger: { trigger: ".inv-grid", start: "top 85%" } });
+      gsap.from(".plat-card", { opacity: 0, y: 40, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".plat-grid", start: "top 85%" } });
+    }
+    init();
+  }, []);
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {investmentOptions.map((inv) => (
-            <div key={inv.id} className="bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-md transition-shadow">
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="text-3xl">{inv.emoji}</div>
-                  <div className="text-right">
-                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${inv.risk === "None" ? "bg-brand-100 text-brand-700" : inv.risk === "Very Low" ? "bg-blue-100 text-blue-700" : "bg-amber-100 text-amber-700"}`}>
-                      {inv.risk} risk
-                    </span>
-                  </div>
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-1">{inv.name}</h3>
-                <p className="text-2xl font-bold text-brand-600 mb-1">~{inv.avgReturn}% <span className="text-sm font-normal text-slate-400">avg annual return</span></p>
-                <p className="text-xs text-slate-400 mb-3">Best for: {inv.bestFor} · Timeframe: {inv.timeframe}</p>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">{inv.description}</p>
-                <div className="bg-slate-50 rounded-xl px-3 py-2 text-xs text-slate-500 border border-slate-100">
-                  Platform: {inv.platform}
-                </div>
-              </div>
-              <div className="border-t border-slate-100 px-6 py-3 bg-brand-50 flex items-center justify-between">
-                <p className="text-xs text-brand-600">{inv.referralNote}</p>
-              </div>
+  return (
+    <div className="space-page">
+      <div className="page-hero">
+        <span className="page-eyebrow">How to Invest</span>
+        <h1 className="page-title">The right investment<br /><em>for your timeline</em></h1>
+        <p className="page-subtitle">Matched to your goal. We earn a small referral fee from partners — disclosed on every card. Your rates are never affected.</p>
+      </div>
+
+      <div className="section-divider" />
+
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(40px,5vw,80px) clamp(24px,5vw,64px)" }}>
+        <span className="s-eye">Investment Options</span>
+        <div className="inv-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 2, marginBottom: 80 }}>
+          {investmentOptions.map((inv, i) => (
+            <div key={inv.id} className="inv-opt space-card" style={{ padding: "clamp(28px,3vw,40px)", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg,#6347FF,#B47FFF)`, opacity: 0.8 }} />
+              <div style={{ fontSize: 32, marginBottom: 16, marginTop: 8 }}>{inv.emoji}</div>
+              <div style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(32px,3.5vw,44px)", color: "#C4BEFF", fontWeight: 300, lineHeight: 1, marginBottom: 4 }}>~{inv.avgReturn}%</div>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.25)", letterSpacing: 0.5, marginBottom: 18 }}>avg annual return</div>
+              <h3 style={{ fontSize: 15, color: "rgba(255,255,255,0.75)", fontWeight: 400, marginBottom: 8 }}>{inv.name}</h3>
+              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", lineHeight: 1.7, marginBottom: 16 }}>{inv.description}</p>
+              <span style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", letterSpacing: 1, textTransform: "uppercase" }}>{inv.timeframe} · {inv.risk} risk</span>
             </div>
           ))}
         </div>
 
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">Recommended platforms</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {platforms.map((p) => (
-              <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer"
-                className="bg-white rounded-2xl border border-slate-100 p-5 hover:shadow-md transition-shadow group flex items-start justify-between">
-                <div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-brand-600 transition-colors mb-1">{p.name}</h3>
-                  <p className="text-xs text-slate-500 mb-2">{p.note}</p>
-                  <span className="inline-block bg-brand-50 text-brand-700 text-xs font-semibold px-2 py-1 rounded-lg">{p.bonus}</span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-brand-400 transition-colors mt-1 flex-shrink-0" />
-              </a>
-            ))}
-          </div>
+        <div className="section-divider" style={{ marginBottom: 60 }} />
+
+        <span className="s-eye">Recommended Platforms</span>
+        <div className="plat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 2 }}>
+          {platforms.map(p => (
+            <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer" className="plat-card space-card" style={{ padding: "clamp(24px,3vw,36px)", textDecoration: "none", display: "block" }}>
+              <div className="space-card-top" />
+              <h3 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 22, fontWeight: 300, color: "#fff", marginBottom: 8, marginTop: 12 }}>{p.name}</h3>
+              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", lineHeight: 1.6, marginBottom: 14 }}>{p.note}</p>
+              <span style={{ fontSize: 11, color: "#A8FFD0", letterSpacing: 0.5 }}>{p.bonus}</span>
+              <div style={{ marginTop: 20, fontSize: 11, color: "#7B5FFF", letterSpacing: 1, textTransform: "uppercase" }}>Open account →</div>
+            </a>
+          ))}
         </div>
 
-        <div className="bg-slate-900 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">Not sure which is right for you?</h2>
-          <p className="text-slate-400 mb-6">Take our 2-minute goal quiz and we'll recommend the exact investment strategy for your timeline and budget.</p>
-          <Link href="/goal" className="inline-flex items-center gap-2 bg-brand-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-brand-400 transition-colors">
-            Take the goal quiz <ArrowRight className="w-4 h-4" />
+        <div style={{ marginTop: 48, textAlign: "center" }}>
+          <Link href="/goal" style={{ background: "linear-gradient(135deg,#6347FF,#B47FFF)", color: "#fff", padding: "15px 36px", borderRadius: 30, fontSize: 15, textDecoration: "none", display: "inline-block" }}>
+            Take the goal quiz first →
           </Link>
+          <p style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", marginTop: 14, fontStyle: "italic" }}>Not financial advice. Always consult a licensed advisor before investing.</p>
         </div>
-
-        <p className="text-xs text-slate-400 text-center mt-8 leading-relaxed">
-          Past returns are not indicative of future results. This page is for educational purposes only and is not financial advice. Always consult a qualified financial advisor before investing.
-        </p>
       </div>
     </div>
   );

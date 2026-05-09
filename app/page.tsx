@@ -1,15 +1,9 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { useAuth } from "@/lib/auth-context";
-import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const navRef = useRef<HTMLDivElement>(null);
-  const { user, logout } = useAuth();
-  const router = useRouter();
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     // ── Star field canvas ──
@@ -70,8 +64,6 @@ export default function HomePage() {
       // Nav solid on scroll
       ScrollTrigger.create({
         start: "80px top",
-        onEnter: () => { if (navRef.current) { navRef.current.style.background = "rgba(5,8,24,0.95)"; navRef.current.style.backdropFilter = "blur(20px)"; navRef.current.style.borderBottom = "1px solid rgba(180,127,255,0.1)"; } },
-        onLeaveBack: () => { if (navRef.current) { navRef.current.style.background = "transparent"; navRef.current.style.backdropFilter = "none"; navRef.current.style.borderBottom = "none"; } },
       });
 
       // Hero entrance
@@ -120,12 +112,6 @@ export default function HomePage() {
   const S: Record<string, React.CSSProperties> = {
     // Layout
     page: { background: "#050818", minHeight: "100vh", overflowX: "hidden" },
-    // Nav
-    nav: { position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: "transparent", transition: "all 0.4s", padding: "0 48px" },
-    navInner: { maxWidth: 1200, margin: "0 auto", height: 76, display: "flex", alignItems: "center", justifyContent: "space-between" },
-    logo: { fontFamily: "'Cormorant Garamond',serif", fontSize: 19, fontWeight: 300, color: "#fff", textDecoration: "none" },
-    navLink: { fontSize: 13, color: "rgba(255,255,255,0.45)", textDecoration: "none" },
-    navCta: { background: "rgba(180,127,255,0.12)", border: "1px solid rgba(180,127,255,0.3)", color: "#C4BEFF", padding: "9px 22px", borderRadius: 30, fontSize: 13, textDecoration: "none" },
     // Hero
     hero: { position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" },
     glow: { position: "absolute", borderRadius: "50%", pointerEvents: "none" },
@@ -143,7 +129,7 @@ export default function HomePage() {
     statLbl: { fontSize: 11, color: "rgba(255,255,255,0.28)", marginTop: 5 },
     // Float cards
     fcard: { position: "absolute" as const, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, padding: "14px 20px", backdropFilter: "blur(12px)", zIndex: 3 },
-    fcLbl: { fontSize: 9, color: "rgba(255,255,255,0.58)", letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 4 },
+    fcLbl: { fontSize: 9, color: "rgba(255,255,255,0.3)", letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 4 },
     fcVal: { fontFamily: "'Cormorant Garamond',serif", fontSize: 20, fontWeight: 300, color: "#fff" },
     // Scroll hint
     scrollHint: { position: "absolute" as const, bottom: 40, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 8, opacity: 0, zIndex: 2 },
@@ -160,7 +146,7 @@ export default function HomePage() {
     stepNum: { fontFamily: "'Cormorant Garamond',serif", fontSize: 56, color: "rgba(255,255,255,0.04)", fontWeight: 300, lineHeight: 1, marginBottom: 24, letterSpacing: -2 },
     stepRing: { width: 52, height: 52, border: "1px solid rgba(180,127,255,0.2)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 20 },
     stepTitle: { fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(18px,2vw,24px)", fontWeight: 300, color: "#fff", marginBottom: 12, letterSpacing: -0.5 },
-    stepDesc: { fontSize: 13, color: "rgba(255,255,255,0.58)", lineHeight: 1.75 },
+    stepDesc: { fontSize: 13, color: "rgba(255,255,255,0.3)", lineHeight: 1.75 },
     stepLink: { display: "inline-flex", alignItems: "center", gap: 6, color: "#7B5FFF", fontSize: 11, letterSpacing: 0.5, textDecoration: "none", textTransform: "uppercase" as const, marginTop: 24 },
     // Invest
     invCard: { background: "#050818", padding: "clamp(24px,3vw,36px) clamp(20px,2vw,28px)", position: "relative" as const, overflow: "hidden", borderBottom: "1px solid rgba(255,255,255,0.04)" },
@@ -191,51 +177,6 @@ export default function HomePage() {
       <div id="cdot" style={{ width: 8, height: 8, background: "#B47FFF", borderRadius: "50%", position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 99999 }} />
       <div id="cring" style={{ width: 36, height: 36, border: "1px solid rgba(180,127,255,0.4)", borderRadius: "50%", position: "fixed", top: 0, left: 0, pointerEvents: "none", zIndex: 99998 }} />
 
-      {/* NAV */}
-      <div ref={navRef} style={S.nav}>
-        <div style={S.navInner}>
-          <Link href="/" style={S.logo}>Invest<span style={{ color: "#B47FFF" }}>Before</span>YouSpend</Link>
-          {/* Desktop links */}
-          <div style={{ display: "flex", gap: 32, alignItems: "center" }} className="desktop-nav">
-            {["Set a Goal|/goal","How to Invest|/invest","Learn|/learn","AI Chat|/chat","Blog|/blog"].map(item => {
-              const [label, href] = item.split("|");
-              return <Link key={href} href={href} style={S.navLink}>{label}</Link>;
-            })}
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }} className="desktop-nav">
-            {user ? (
-              <>
-                <Link href="/dashboard" style={S.navLink}>Dashboard</Link>
-                <button onClick={() => { logout(); router.push("/"); }} style={{ ...S.navLink, background: "none", border: "none", cursor: "pointer" }}>Log out</button>
-              </>
-            ) : (
-              <>
-                <Link href="/auth" style={S.navLink}>Log in</Link>
-                <Link href="/goal" style={S.navCta}>Start Free →</Link>
-              </>
-            )}
-          </div>
-          {/* Mobile hamburger */}
-          <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", fontSize: 22, display: "none" }} className="mobile-menu-btn">
-            {menuOpen ? "✕" : "☰"}
-          </button>
-        </div>
-        {/* Mobile menu */}
-        {menuOpen && (
-          <div style={{ background: "rgba(5,8,24,0.98)", padding: "20px 24px", borderTop: "1px solid rgba(180,127,255,0.1)" }}>
-            {["Set a Goal|/goal","How to Invest|/invest","Learn|/learn","AI Chat|/chat","Blog|/blog"].map(item => {
-              const [label, href] = item.split("|");
-              return <Link key={href} href={href} onClick={() => setMenuOpen(false)} style={{ display: "block", color: "rgba(255,255,255,0.6)", textDecoration: "none", padding: "12px 0", fontSize: 15, borderBottom: "1px solid rgba(255,255,255,0.05)" }}>{label}</Link>;
-            })}
-            <div style={{ marginTop: 16, display: "flex", gap: 12 }}>
-              <Link href="/auth" style={{ color: "rgba(255,255,255,0.45)", textDecoration: "none", fontSize: 14 }}>Log in</Link>
-              <Link href="/goal" style={{ ...S.navCta, fontSize: 14 }}>Start Free →</Link>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* HERO */}
       <section id="hero" style={S.hero}>
         <div id="glow1" style={{ ...S.glow, width: 700, height: 700, background: "radial-gradient(circle,rgba(99,71,255,.14) 0%,transparent 65%)", top: -200, right: -150 }} />
         <div id="glow2" style={{ ...S.glow, width: 450, height: 450, background: "radial-gradient(circle,rgba(180,100,255,.1) 0%,transparent 65%)", bottom: -80, left: -80 }} />
@@ -312,8 +253,8 @@ export default function HomePage() {
               </h2>
             </div>
             <div id="intro-body">
-              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.65)", lineHeight: 1.85, marginBottom: 20 }}>When you know <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>what you want to buy</strong> and <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>when you need it</strong>, we put your savings in exactly the right investment. Not a bank earning 0.01%. The right instrument, matched to your exact timeline.</p>
-              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.65)", lineHeight: 1.85, marginBottom: 24 }}>When you're ready — car, home, vacation — our dealer network competes for your business. <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>You arrive with money saved and the power to negotiate.</strong></p>
+              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.38)", lineHeight: 1.85, marginBottom: 20 }}>When you know <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>what you want to buy</strong> and <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>when you need it</strong>, we put your savings in exactly the right investment. Not a bank earning 0.01%. The right instrument, matched to your exact timeline.</p>
+              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.38)", lineHeight: 1.85, marginBottom: 24 }}>When you're ready — car, home, vacation — our dealer network competes for your business. <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>You arrive with money saved and the power to negotiate.</strong></p>
               <Link href="/goal" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#9B89FF", fontSize: 14, textDecoration: "none", borderBottom: "1px solid rgba(155,137,255,0.3)", paddingBottom: 3 }}>Set your first goal →</Link>
             </div>
           </div>
@@ -354,7 +295,7 @@ export default function HomePage() {
               <span style={S.eyebrow}>Where your money goes</span>
               <h2 style={{ ...S.sectionH, fontSize: "clamp(32px,4vw,52px)", marginTop: 12 }}>The right investment<br /><em style={{ fontStyle: "italic", color: "#B47FFF" }}>for your timeline</em></h2>
             </div>
-            <p style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.60)", lineHeight: 1.85 }}>We earn a small referral fee from investment platforms when you open an account through our links. This keeps IBYS free for you — and we only recommend what fits your goal.</p>
+            <p style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.32)", lineHeight: 1.85 }}>We earn a small referral fee from investment platforms when you open an account through our links. This keeps IBYS free for you — and we only recommend what fits your goal.</p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 1, background: "rgba(255,255,255,0.04)" }}>
             {[

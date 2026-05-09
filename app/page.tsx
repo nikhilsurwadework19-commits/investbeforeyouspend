@@ -143,7 +143,7 @@ export default function HomePage() {
     statLbl: { fontSize: 11, color: "rgba(255,255,255,0.28)", marginTop: 5 },
     // Float cards
     fcard: { position: "absolute" as const, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, padding: "14px 20px", backdropFilter: "blur(12px)", zIndex: 3 },
-    fcLbl: { fontSize: 9, color: "rgba(255,255,255,0.3)", letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 4 },
+    fcLbl: { fontSize: 9, color: "rgba(255,255,255,0.58)", letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 4 },
     fcVal: { fontFamily: "'Cormorant Garamond',serif", fontSize: 20, fontWeight: 300, color: "#fff" },
     // Scroll hint
     scrollHint: { position: "absolute" as const, bottom: 40, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 8, opacity: 0, zIndex: 2 },
@@ -160,7 +160,7 @@ export default function HomePage() {
     stepNum: { fontFamily: "'Cormorant Garamond',serif", fontSize: 56, color: "rgba(255,255,255,0.04)", fontWeight: 300, lineHeight: 1, marginBottom: 24, letterSpacing: -2 },
     stepRing: { width: 52, height: 52, border: "1px solid rgba(180,127,255,0.2)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 20 },
     stepTitle: { fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(18px,2vw,24px)", fontWeight: 300, color: "#fff", marginBottom: 12, letterSpacing: -0.5 },
-    stepDesc: { fontSize: 13, color: "rgba(255,255,255,0.3)", lineHeight: 1.75 },
+    stepDesc: { fontSize: 13, color: "rgba(255,255,255,0.58)", lineHeight: 1.75 },
     stepLink: { display: "inline-flex", alignItems: "center", gap: 6, color: "#7B5FFF", fontSize: 11, letterSpacing: 0.5, textDecoration: "none", textTransform: "uppercase" as const, marginTop: 24 },
     // Invest
     invCard: { background: "#050818", padding: "clamp(24px,3vw,36px) clamp(20px,2vw,28px)", position: "relative" as const, overflow: "hidden", borderBottom: "1px solid rgba(255,255,255,0.04)" },
@@ -312,8 +312,8 @@ export default function HomePage() {
               </h2>
             </div>
             <div id="intro-body">
-              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.38)", lineHeight: 1.85, marginBottom: 20 }}>When you know <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>what you want to buy</strong> and <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>when you need it</strong>, we put your savings in exactly the right investment. Not a bank earning 0.01%. The right instrument, matched to your exact timeline.</p>
-              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.38)", lineHeight: 1.85, marginBottom: 24 }}>When you're ready — car, home, vacation — our dealer network competes for your business. <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>You arrive with money saved and the power to negotiate.</strong></p>
+              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.65)", lineHeight: 1.85, marginBottom: 20 }}>When you know <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>what you want to buy</strong> and <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>when you need it</strong>, we put your savings in exactly the right investment. Not a bank earning 0.01%. The right instrument, matched to your exact timeline.</p>
+              <p style={{ fontSize: "clamp(14px,1.5vw,16px)", color: "rgba(255,255,255,0.65)", lineHeight: 1.85, marginBottom: 24 }}>When you're ready — car, home, vacation — our dealer network competes for your business. <strong style={{ color: "rgba(255,255,255,0.75)", fontWeight: 400 }}>You arrive with money saved and the power to negotiate.</strong></p>
               <Link href="/goal" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#9B89FF", fontSize: 14, textDecoration: "none", borderBottom: "1px solid rgba(155,137,255,0.3)", paddingBottom: 3 }}>Set your first goal →</Link>
             </div>
           </div>
@@ -354,7 +354,7 @@ export default function HomePage() {
               <span style={S.eyebrow}>Where your money goes</span>
               <h2 style={{ ...S.sectionH, fontSize: "clamp(32px,4vw,52px)", marginTop: 12 }}>The right investment<br /><em style={{ fontStyle: "italic", color: "#B47FFF" }}>for your timeline</em></h2>
             </div>
-            <p style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.32)", lineHeight: 1.85 }}>We earn a small referral fee from investment platforms when you open an account through our links. This keeps IBYS free for you — and we only recommend what fits your goal.</p>
+            <p style={{ fontSize: "clamp(13px,1.4vw,15px)", color: "rgba(255,255,255,0.60)", lineHeight: 1.85 }}>We earn a small referral fee from investment platforms when you open an account through our links. This keeps IBYS free for you — and we only recommend what fits your goal.</p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 1, background: "rgba(255,255,255,0.04)" }}>
             {[
